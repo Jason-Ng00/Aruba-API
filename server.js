@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser')
+const auth = require('basic-auth')
 
 // Constants
 const PORT = 8080;
@@ -15,8 +16,19 @@ const app = express();
 app.use(express.json())
 app.use(express.urlencoded())
 
+function isAuth(req, res, next) {
+  var user = auth(req);
 
-app.get('/', (req, res) => {
+  if (user === undefined || user['name'] !== 'admin' || user['pass'] !== 'arubaUXI') {
+      res.statusCode = 401;
+      res.setHeader('WWW-Authenticate', 'Basic realm="MyRealmName"');
+      res.end('Unauthorized');
+  } else {
+      next();
+  }
+}
+
+app.get('/', isAuth, (req, res) => {
   res.send('Hello World');
 });
 

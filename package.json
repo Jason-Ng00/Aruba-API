@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Jason-Ng00/Aruba-API#readme",
   "dependencies": {
+    "basic-auth": "^2.0.1",
     "body-parser": "^1.20.1",
     "connect": "^3.7.0",
     "cors": "^2.8.5",
