@@ -60,10 +60,16 @@ app.post('/data', isAuth, (req, res) => {
     list = flattenJson(curr_data)
     data_list.push(list)
   }
+
+  fetch('https://api.powerbi.com/beta/5ba5ef5e-3109-4e77-85bd-cfeb0d347e82/datasets/60e4f48b-7f5b-4b04-aad2-47d76b8d901d/rows?key=Ztn0B0hFc%2FWfoePc2rXNcujNfiq70u24xTc1NF3VLmiq2CkYAMQgrQAiTHzMOwUqF1AkG%2FCjMl0TOXUuD5aK4w%3D%3D', {
+    method: 'POST',
+    body: data_list
+  })
+
   res.send(data_list);
 });
 
-app.post('/issue-data', isAuth, (req, res) => {
+app.post('/issue-data', isAuth, async (req, res) => {
   const content = {requestBody: req.body}
   console.log(req.body)
   if (!content) {
@@ -80,12 +86,7 @@ app.post('/issue-data', isAuth, (req, res) => {
     list = flattenJson(curr_data)
     data_list.push(list)
   }
-
-  fetch('https://api.powerbi.com/beta/5ba5ef5e-3109-4e77-85bd-cfeb0d347e82/datasets/60e4f48b-7f5b-4b04-aad2-47d76b8d901d/rows?key=Ztn0B0hFc%2FWfoePc2rXNcujNfiq70u24xTc1NF3VLmiq2CkYAMQgrQAiTHzMOwUqF1AkG%2FCjMl0TOXUuD5aK4w%3D%3D', {
-    method: 'POST',
-    body: data_list
-  })
-
+  
   res.send(data_list);
 });
 
