@@ -69,7 +69,7 @@ app.post('/data', isAuth, (req, res) => {
   res.send(data_list);
 });
 
-app.post('/issue-data', isAuth, async (req, res) => {
+app.post('/issue-data', isAuth, (req, res) => {
   const content = {requestBody: req.body}
   console.log(req.body)
   if (!content) {
@@ -86,7 +86,7 @@ app.post('/issue-data', isAuth, async (req, res) => {
     list = flattenJson(curr_data)
     data_list.push(list)
   }
-  
+
   res.send(data_list);
 });
 
