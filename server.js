@@ -1,5 +1,5 @@
 const express = require('express');
-// const auth = require('basic-auth')
+const auth = require('basic-auth')
 
 // Constants
 const PORT = 8080;
@@ -33,15 +33,15 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-app.get('/data', (req, res) => {
+app.get('/data', isAuth, (req, res) => {
   res.send(data);
 });
 
-app.get('/powerbi-data', (req, res) => {
+app.get('/powerbi-data', isAuth, (req, res) => {
   res.send(data_list);
 });
 
-app.post('/data', (req, res) => {
+app.post('/data', isAuth, (req, res) => {
   const content = {requestBody: req.body}
   console.log(req.body)
   if (!content) {
