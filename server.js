@@ -15,6 +15,8 @@ let data = [{
   'user': 'test1'
 }]
 
+let issue_data_list = []
+
 let data_list = []
 
 function isAuth(req, res, next) {
@@ -61,8 +63,35 @@ app.post('/data', isAuth, (req, res) => {
   res.send(data_list);
 });
 
+app.post('/issue-data', isAuth, (req, res) => {
+  const content = {requestBody: req.body}
+  console.log(req.body)
+  if (!content) {
+    return res.sendStatus(400);
+  }
+
+  data.push(content)
+  all_data = content['requestBody']
+
+  let all_data_list = []
+  let list
+  for (var curr_data of all_data) {
+    console.log(curr_data)
+    list = flattenJson(curr_data)
+    data_list.push(list)
+  }
+
+  fetch('https://reqbin.com/echo/post/https://api.powerbi.com/beta/5ba5ef5e-3109-4e77-85bd-cfeb0d347e82/datasets/60e4f48b-7f5b-4b04-aad2-47d76b8d901d/rows?key=Ztn0B0hFc%2FWfoePc2rXNcujNfiq70u24xTc1NF3VLmiq2CkYAMQgrQAiTHzMOwUqF1AkG%2FCjMl0TOXUuD5aK4w%3D%3D', {
+    method: 'POST',
+    body: data_list
+  })
+
+  res.send(data_list);
+});
+
 function flattenJson(ori) {
   let obj = {}
+  obj['timestamp'] = ori['timestamp']
   obj['code'] = ori['code']
   obj['target'] = ori['target']
   obj['protocol'] = ori['protocol']
@@ -70,15 +99,14 @@ function flattenJson(ori) {
   obj['packets_received'] = ori['packets_received']
   obj['packets_dropped'] = ori['packets_dropped']
   obj['latency_milliseconds'] = ori['latency_milliseconds']
-  obj['lattency_min_milliseconds'] = ori['lattency_min_milliseconds']
+  obj['latency_min_milliseconds'] = ori['latency_min_milliseconds']
   obj['latency_max_milliseconds'] = ori['latency_max_milliseconds']
   obj['jitter_milliseconds'] = ori['jitter_milliseconds']
-  obj['timestamp'] = ori['timestamp']
 
   obj['interface_type'] = ori['context']['interface_type']
   obj['interface_name'] = ori['context']['interface_name']
   obj['ip_address'] = ori['context']['ip_address']
-  obj['customer_uid'] = ori['context']['customer_uid']
+  obj['customer_uid'] = ori['context']['customer                     _uid']
   obj['category'] = ori['context']['category']
   obj['defaulty_gateway'] = ori['context']['default_gateway']
   obj['dhcp_server'] = ori['context']['dhcp_server']
