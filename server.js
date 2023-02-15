@@ -108,7 +108,7 @@ function flattenJson(ori) {
   obj['ip_address'] = ori['context']['ip_address']
   obj['customer_uid'] = ori['context']['customer                     _uid']
   obj['category'] = ori['context']['category']
-  obj['defaulty_gateway'] = ori['context']['default_gateway']
+  obj['default_gateway'] = ori['context']['default_gateway']
   obj['dhcp_server'] = ori['context']['dhcp_server']
   obj['primary_dns'] = ori['context']['primary_dns']
   obj['secondary_dns'] = ori['context']['secondary_dns']
