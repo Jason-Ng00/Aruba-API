@@ -1,5 +1,5 @@
 const express = require('express');
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 
 // Constants
 const PORT = 8080;
@@ -25,7 +25,7 @@ app.get('/data', (req, res) => {
 });
 
 app.post('/data', (req, res) => {
-  const content = req.body;
+  const content = {requestBody: req.body}
   console.log(req.body)
   if (!content) {
     return res.sendStatus(400);
