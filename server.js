@@ -32,11 +32,11 @@ app.get('/', isAuth, (req, res) => {
   res.send('Hello World');
 });
 
-app.get('/data', (req, res) => {
+app.get('/data', isAuth, (req, res) => {
   res.send(data);
 });
 
-app.post('/data', (req, res) => {
+app.post('/data', isAuth, (req, res) => {
   const content = {requestBody: req.body}
   console.log(req.body)
   if (!content) {
